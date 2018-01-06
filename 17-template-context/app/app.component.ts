@@ -1,3 +1,5 @@
+// dynamically passing in context to templates
+
 import { Component, TemplateRef, ComponentRef, ViewContainerRef, ViewChild, AfterContentInit, ComponentFactoryResolver } from '@angular/core';
 
 import { AuthFormComponent } from './auth-form/auth-form.component';
@@ -21,8 +23,11 @@ export class AppComponent implements AfterContentInit {
   @ViewChild('tmpl') tmpl: TemplateRef<any>;
 
   ngAfterContentInit() {
+    // pass these values, template ref is first arg
     this.entry.createEmbeddedView(this.tmpl, {
+      // implicit value binds it self to a value (let-name)
       $implicit: 'Motto Todd',
+      // location value:
       location: 'UK, England'
     });
   }

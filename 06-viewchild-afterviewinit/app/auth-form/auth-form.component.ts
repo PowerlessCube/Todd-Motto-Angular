@@ -39,10 +39,12 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   @Output() submitted: EventEmitter<User> = new EventEmitter<User>();
 
   ngAfterViewInit() {
+    // Won't work as expected - we're changing something after the view has been initialised
     // this.message.days = 30;
   }
   
   ngAfterContentInit() {
+    // life cycle hook that is called after the content has been projected.
     if (this.message) {
       this.message.days = 30;
     }

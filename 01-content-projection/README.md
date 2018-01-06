@@ -81,8 +81,18 @@ The project uses `webpack` to build and compile all of our assets. This will do 
 - Provide the polyfills needed to run our app in all modern browsers
 - Mock a JSON backend using [json-server](https://github.com/typicode/json-server)
 
-### Content Projection
 
+### Notes 
+
+**Content Projection Video 1**
 Allows us to project content into somewhere else in the app.
-
 We can pass elements or pieces of info between component tags.
+
+**ng-content projection slots: Video 2**
+you can add a select statement to the ng-content to inject specific elements into places where they are required.
+
+```html
+  <ng-content select="button"></ng-content>    
+```
+
+*Works similar to a document query selector*

@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'example-two',
+  // creates a brand new DOM in Example 2
   encapsulation: ViewEncapsulation.Native,
   styles: [`
     .example-two {

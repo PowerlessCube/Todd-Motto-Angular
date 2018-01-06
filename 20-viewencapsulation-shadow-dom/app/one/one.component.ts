@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'example-one',
+  // default for angular style, no need to specifiy it.
+  encapsulation: ViewEncapsulation.Emulated, // Output an emulation of the shadowdom in the browser.
   styles: [`
     .example-one {
       background: #9f72e6;

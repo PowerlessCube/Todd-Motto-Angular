@@ -1,3 +1,4 @@
+// Changed ViewChild to ViewChildren - QueryList: Live collection, will be updated when adding and removing things from a QueryList.
 import { Component, ChangeDetectorRef, Output, ViewChildren, AfterViewInit, EventEmitter, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
 
 import { AuthRememberComponent } from './auth-remember.component';
@@ -47,10 +48,9 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   constructor(private cd: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
+    // Special Use case - we're mutating data after component is init, the change detectChanges gets around that.
     if (this.message) {
-      this.message.forEach((message) => {
-        message.days = 30;
-      });
+      this.message.forEach((message) => message.days = 30);
       this.cd.detectChanges();
     }
   }

@@ -2,7 +2,9 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'example-one',
+  // OnPush = use immutable datastructures to make change detection much faster
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // Good for speeding up your application for stateless components.
   styles: [`
     .example-one {
       font-size: 19px;
@@ -23,6 +25,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ExampleOneComponent {
   @Input()
+  // It will expect an immutable object.
   user;
 
   update() {

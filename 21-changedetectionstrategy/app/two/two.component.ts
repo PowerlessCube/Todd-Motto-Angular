@@ -2,6 +2,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'example-two',
+  // on our component decorartor - ChangeDetectionStrategy.Default runs every time we change something.
   changeDetection: ChangeDetectionStrategy.Default,
   styles: [`
     .example-two {

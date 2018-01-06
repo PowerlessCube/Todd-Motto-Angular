@@ -20,6 +20,7 @@ import { AuthMessageComponent } from './auth-message.component';
     AuthFormComponent,
     AuthRememberComponent
   ],
+  // Dynamically created components need to be registered in entryComponents (components not compiled at run time)
   entryComponents: [
     AuthFormComponent
   ]

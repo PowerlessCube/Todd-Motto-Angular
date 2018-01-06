@@ -46,8 +46,11 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   constructor(private cd: ChangeDetectorRef) {}
 
   ngAfterViewInit() {
+    // Adds attribute to element, in this case placeholder text.
     this.email.nativeElement.setAttribute('placeholder', 'Enter your email address');
+    // adds the class of 'email' to the element
     this.email.nativeElement.classList.add('email');
+    // automatically focused into that first input.
     this.email.nativeElement.focus();
     if (this.message) {
       this.message.forEach((message) => {

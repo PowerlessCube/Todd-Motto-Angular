@@ -49,6 +49,7 @@ export class AuthFormComponent implements AfterContentInit, AfterViewInit {
   ) {}
 
   ngAfterViewInit() {
+    // Keeps are code Platform Safe - So it will work across platforms (webapp/mobile/tablet etc.)
     this.renderer.setElementAttribute(this.email.nativeElement, 'placeholder', 'Enter your email address');
     this.renderer.setElementClass(this.email.nativeElement, 'email', true);
     this.renderer.invokeElementMethod(this.email.nativeElement, 'focus');

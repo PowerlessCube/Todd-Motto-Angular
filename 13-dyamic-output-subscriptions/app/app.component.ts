@@ -24,6 +24,7 @@ export class AppComponent implements AfterContentInit {
     const authFormFactory = this.resolver.resolveComponentFactory(AuthFormComponent);
     const component = this.entry.createComponent(authFormFactory);
     component.instance.title = 'Create account';
+    // accessing the outputs of our dynamic component
     component.instance.submitted.subscribe(this.loginUser);
   }
 

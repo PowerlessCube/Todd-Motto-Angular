@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
+  // Create our own custom directive called "credit-card"
   template: `
     <div>
       <label>

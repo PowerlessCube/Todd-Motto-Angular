@@ -23,6 +23,7 @@ export class AppComponent implements AfterContentInit {
   ngAfterContentInit() {
     const authFormFactory = this.resolver.resolveComponentFactory(AuthFormComponent);
     const component = this.entry.createComponent(authFormFactory);
+    // instance exposes the public properties of the component - below we overide this title with a new title.
     component.instance.title = 'Create account';
   }
 

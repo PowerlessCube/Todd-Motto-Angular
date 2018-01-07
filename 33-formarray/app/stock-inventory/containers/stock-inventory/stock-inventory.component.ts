@@ -24,10 +24,10 @@ import { Product } from '../../models/product.interface';
         </stock-products>
 
         <div class="stock-inventory__buttons">
-          <button 
+          <button
             type="submit"
             [disabled]="form.invalid">
-            Order stock
+            Order Stock
           </button>
         </div>
 

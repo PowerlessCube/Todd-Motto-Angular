@@ -5,15 +5,15 @@ import { Product } from '../../models/product.interface';
 
 @Component({
   selector: 'stock-inventory',
-  styleUrls: ['stock-inventory.component.scss'],
+  styles: ['stock-inventory.component.scss'],
   template: `
     <div class="stock-inventory">
-      <form [formGroup]="form" (ngSubmit)="onSubmit">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
         <stock-branch
           [parent]="form">
         </stock-branch>
-        <!-- Pass that data down to the components -->
+
         <stock-selector
           [parent]="form"
           [products]="products">
@@ -24,7 +24,8 @@ import { Product } from '../../models/product.interface';
         </stock-products>
 
         <div class="stock-inventory__buttons">
-          <button type="submit"
+          <button
+            type="submit"
             [disabled]="form.invalid">
             Order Stock
           </button>
@@ -37,13 +38,13 @@ import { Product } from '../../models/product.interface';
   `
 })
 export class StockInventoryComponent {
-  // We're going to pass the products down into the stock selector wiht a view to performing CRUD operations on them
+
   products: Product[] = [
-      { "id": 1, "price": 2800, "name": "MacBook Pro" },
-      { "id": 2, "price": 50, "name": "USB-C Adaptor" },
-      { "id": 3, "price": 400, "name": "iPod" },
-      { "id": 4, "price": 900, "name": "iPhone" },
-      { "id": 5, "price": 600, "name": "iWatch" }
+    { "id": 1, "price": 2800, "name": "MacBook Pro" },
+    { "id": 2, "price": 50, "name": "USB-C Adaptor" },
+    { "id": 3, "price": 400, "name": "iPod" },
+    { "id": 4, "price": 900, "name": "iPhone" },
+    { "id": 5, "price": 600, "name": "Apple Watch" },
   ];
 
   form = new FormGroup({
@@ -51,15 +52,21 @@ export class StockInventoryComponent {
       branch: new FormControl(''),
       code: new FormControl('')
     }),
-    // We have the selector that is part of our form group, creating a nested FormGroup.
-    selector: new FormGroup({
-      product_id: new FormControl(''),
-      quantity: new FormControl(10)
-    }),
-    stock: new FormArray([])
+    selector: this.createStock({}),
+    stock: new FormArray([
+      this.createStock({ product_id: 1, quantity: 10 }),
+      this.createStock({ product_id: 3, quantity: 50 }),
+    ])
   })
 
+  createStock(stock) {
+    return new FormGroup({
+      product_id: new FormControl(parseInt(stock.product_id, 10) || ''),
+      quantity: new FormControl(stock.quantity || 10)
+    });
+  }
+
   onSubmit() {
-    console.log('Submit: ', this.form.value);
+    console.log('Submit:', this.form.value);
   }
 }

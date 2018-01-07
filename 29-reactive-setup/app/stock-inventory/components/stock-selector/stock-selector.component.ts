@@ -3,21 +3,18 @@ import { FormGroup } from '@angular/forms';
 
 import { Product } from '../../models/product.interface';
 
-// Providing all the data from our smart component "Stock-inventory" to our stateless component
 @Component({
   selector: 'stock-selector',
   styleUrls: ['stock-selector.component.scss'],
   template: `
     <div class="stock-selector" [formGroup]="parent">
-      <!-- Bind our formGroup to this div -->
       <div formGroupName="selector">
-        <select fromControlName="product_id">
+        <select formControlName="product_id">
           <option value="">Select stock</option>
-          <!-- Binds the value to the product.id -->
           <option
             *ngFor="let product of products"
             [value]="product.id">
-            {{product.name}}
+            {{ product.name }}
           </option>
         </select>
         <input

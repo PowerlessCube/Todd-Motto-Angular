@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-// 1. add Http Module from angular
 import { HttpModule } from '@angular/http';
 
 import { StockInventoryComponent } from './containers/stock-inventory/stock-inventory.component';
@@ -19,14 +18,12 @@ import { StockInventoryService } from './services/stock-inventory.service';
     StockProductsComponent,
     StockSelectorComponent
   ],
-  // service is provider
   providers: [
     StockInventoryService
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    // 2. add it to our imports
     HttpModule
   ],
   exports: [

@@ -15,22 +15,17 @@ export class StockInventoryService {
     private http: Http
   ) {}
 
-  // Both methods return an observable,
   getCartItems(): Observable<Item[]> {
     return this.http
       .get('/api/cart')
-      // immutable object response in json
       .map((response: Response) => response.json())
-      // Catch Errors and return as json
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   getProducts(): Observable<Product[]> {
     return this.http
       .get('/api/products')
-      // immutable object response in json
       .map((response: Response) => response.json())
-      // Catch Errors and return as json
       .catch((error: any) => Observable.throw(error.json()));
   }
 

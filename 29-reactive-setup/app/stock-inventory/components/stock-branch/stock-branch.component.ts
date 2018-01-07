@@ -5,7 +5,6 @@ import { FormGroup } from '@angular/forms';
   selector: 'stock-branch',
   styleUrls: ['stock-branch.component.scss'],
   template: `
-    <!-- Register it with the parent form control-->
     <div [formGroup]="parent">
       <div formGroupName="store">
         <input

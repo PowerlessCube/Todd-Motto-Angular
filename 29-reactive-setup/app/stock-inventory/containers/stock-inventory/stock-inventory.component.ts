@@ -56,16 +56,16 @@ export class StockInventoryComponent implements OnInit {
   total: number;
   productMap: Map<number, Product>;
 
+  // Goal: We want to check the whole group against the currently selected item to see if it already exists in the cart.
   form = this.fb.group({
-    // Goal: Create our own Custom validators
     store: this.fb.group({
-      // second argument can be an array. StockValidators with method of checkBranch
       branch: ['', [Validators.required, StockValidators.checkBranch]],
       code: ['', Validators.required]
     }),
     selector: this.createStock({}),
     stock: this.fb.array([])
-  })
+    // given access to the root form control here.
+  }, { validator: StockValidators.checkStockExists })
 
   constructor(
     private fb: FormBuilder,

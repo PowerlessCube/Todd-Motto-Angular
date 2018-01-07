@@ -50,13 +50,11 @@ export class StockSelectorComponent {
   @Output()
   added = new EventEmitter<any>();
 
-  // Checks if the selector has an id.
   get notSelected() {
     return (
       !this.parent.get('selector.product_id').value
     )
   }
-  // Checks if our stock already exists in the stock
   get stockExists() {
     return (
       this.parent.hasError('stockExists') &&

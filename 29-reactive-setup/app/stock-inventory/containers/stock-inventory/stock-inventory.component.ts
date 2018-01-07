@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
 
 import { StockValidators } from './stock-inventory.validators';
 
@@ -56,15 +56,20 @@ export class StockInventoryComponent implements OnInit {
   total: number;
   productMap: Map<number, Product>;
 
-  // Goal: We want to check the whole group against the currently selected item to see if it already exists in the cart.
   form = this.fb.group({
     store: this.fb.group({
-      branch: ['', [Validators.required, StockValidators.checkBranch]],
+      // 3. first arg default value
+      branch: ['',
+        // 2nd synchronis validators
+        [Validators.required, StockValidators.checkBranch],
+        // 3rd is the async validators - you can cadd multiple async validators by putting them in an array.
+        // 4. We ask for our branch call
+        this.validateBranch.bind(this)
+      ],
       code: ['', Validators.required]
     }),
     selector: this.createStock({}),
     stock: this.fb.array([])
-    // given access to the root form control here.
   }, { validator: StockValidators.checkStockExists })
 
   constructor(
@@ -90,6 +95,15 @@ export class StockInventoryComponent implements OnInit {
           this.form.get('stock')
             .valueChanges.subscribe(value => this.calculateTotal(value));
       })
+  }
+
+  // 5. Branch call received
+  validateBranch(control: AbstractControl) {
+    // We do this inside our component class so we can have access to our service
+    return this.stockService
+      .checkBranchId(control.value)
+      // map the response and return null or error unknownBranch.
+      .map((response: boolean) => response ? null : { unknownBranch: true })
   }
 
   calculateTotal(value: Item[]) {

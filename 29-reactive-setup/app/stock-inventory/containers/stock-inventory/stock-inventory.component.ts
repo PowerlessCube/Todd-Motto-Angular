@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 
@@ -55,8 +55,9 @@ export class StockInventoryComponent implements OnInit {
 
   form = this.fb.group({
     store: this.fb.group({
-      branch: '',
-      code: ''
+      // How to tell the reactive form that the fields are required
+      branch: ['', Validators.required],
+      code: ['', Validators.required]
     }),
     selector: this.createStock({}),
     stock: this.fb.array([])

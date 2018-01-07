@@ -65,33 +65,26 @@ export class StockCounterComponent implements ControlValueAccessor {
   value: number = 10;
   focus: boolean;
 
-  // We get given the keydown event
   onKeyDown(event: KeyboardEvent) {
 
-    // object contains up and down arrows
     const handlers = {
       ArrowDown: () => this.decrement(),
       ArrowUp: () => this.increment()
     };
 
-    // if event exists
     if (handlers[event.code]) {
-      // calling decrement and increment dynamically
       handlers[event.code]();
       event.preventDefault();
       event.stopPropagation();
     }
-    // fire ontouch
     this.onTouch();
   }
-  // Tells the Form that it has been interacted with
   onBlur(event: FocusEvent) {
     this.focus = false;
     event.preventDefault();
     event.stopPropagation();
     this.onTouch();
   }
-  // Tells the Form that it has been interacted with
   onFocus(event: FocusEvent) {
     this.focus = true;
     event.preventDefault();

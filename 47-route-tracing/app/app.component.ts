@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+
+// Add filter method to opertator
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-root',
@@ -29,5 +32,15 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   constructor(private router: Router) {}
-  ngOnInit() {}
+  ngOnInit() {
+    // Navigation events and the RouteRecognized are the most common.
+    // Using Navigation End:
+    this.router.events
+      // Cleaner way of grabbing specific end event
+      .filter(event => event instanceof NavigationEnd)
+      .subscribe(event => {
+        // subscribe only called when the NavigationEnd happens
+        console.log(event);
+      })
+  }
 }

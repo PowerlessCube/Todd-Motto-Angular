@@ -12,7 +12,8 @@ interface File {
     <div>
       <div *ngFor="let file of files">
         <p>{{ file.name }}</p>
-        <p>{{ file.size | filesize }}</p>
+        <!-- Create a pipe that tranforms file size into MB -->
+        <p>{{ file.size | filesize /*: MegaBites*/ }}</p>
       </div>
     </div>
   `

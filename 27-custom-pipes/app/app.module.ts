@@ -8,6 +8,7 @@ import { FileSizePipe } from './filesize.pipe';
 @NgModule({
   declarations: [
     AppComponent,
+    // Add our pipe to the declarations
     FileSizePipe
   ],
   imports: [

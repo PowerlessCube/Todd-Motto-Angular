@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+// New API - reactiveFormsmodule
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { StockInventoryComponent } from './containers/stock-inventory/stock-inventory.component';
@@ -10,6 +11,7 @@ import { StockInventoryComponent } from './containers/stock-inventory/stock-inve
   ],
   imports: [
     CommonModule,
+    //It uses the component code as the source of truth rather than our template for our model
     ReactiveFormsModule
   ],
   exports: [

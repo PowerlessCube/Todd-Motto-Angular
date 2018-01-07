@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   template: `
     <div>
+      <!-- Base Container component -->
       <stock-inventory></stock-inventory>
     </div>
   `

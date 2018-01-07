@@ -17,13 +17,13 @@ import { Product } from '../../models/product.interface';
             {{ product.name }}
           </option>
         </select>
-        <input 
+        <input
           type="number"
           step="10"
           min="10"
           max="1000"
           formControlName="quantity">
-        <button 
+        <button
           type="button"
           (click)="onAdd()">
           Add stock
@@ -35,7 +35,7 @@ import { Product } from '../../models/product.interface';
 export class StockSelectorComponent {
   @Input()
   parent: FormGroup;
-  
+
   @Input()
   products: Product[];
 

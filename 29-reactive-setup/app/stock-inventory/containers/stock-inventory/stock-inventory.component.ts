@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, FormArray } from '@angular/forms';
+// 1. Include it in project
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 import { Product } from '../../models/product.interface';
 
@@ -19,7 +20,6 @@ import { Product } from '../../models/product.interface';
           (added)="addStock($event)">
         </stock-selector>
 
-        <!-- Event Listener -->
         <stock-products
           [parent]="form"
           (removed)="removeStock($event)">
@@ -49,22 +49,28 @@ export class StockInventoryComponent {
     { "id": 5, "price": 600, "name": "Apple Watch" },
   ];
 
-  form = new FormGroup({
-    store: new FormGroup({
-      branch: new FormControl(''),
-      code: new FormControl('')
+  // FormBuilder - better way of maintaining our componentised form.
+  form = this.fb.group({
+    store: this.fb.group({
+      branch: '',
+      code: ''
     }),
     selector: this.createStock({}),
-    stock: new FormArray([
+    stock: this.fb.array([
       this.createStock({ product_id: 1, quantity: 10 }),
       this.createStock({ product_id: 3, quantity: 50 }),
     ])
   })
 
+  // 2. Inject FormBuilder in constructor
+  constructor(
+    private fb: FormBuilder
+  ){}
+
   createStock(stock) {
-    return new FormGroup({
-      product_id: new FormControl(parseInt(stock.product_id, 10) || ''),
-      quantity: new FormControl(stock.quantity || 10)
+    return this.fb.group({
+      product_id: parseInt(stock.product_id, 10) || '',
+      quantity: stock.quantity || 10
     });
   }
 
@@ -72,8 +78,6 @@ export class StockInventoryComponent {
     const control = this.form.get('stock') as FormArray;
     control.push(this.createStock(stock));
   }
-  // 4. Event Listener function removeStock
-  // ES6 destructuring and TypeScript type definition
   removeStock({ group, index }: { group: FormGroup, index: number }) {
     const control = this.form.get('stock') as FormArray;
     control.removeAt(index)

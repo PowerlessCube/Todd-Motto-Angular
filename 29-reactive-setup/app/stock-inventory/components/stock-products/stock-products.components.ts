@@ -48,7 +48,6 @@ export class StockProductsComponent {
   @Output()
   removed = new EventEmitter<any>();
 
-  // Create a getProduct function that gets the product information for displaying in template
   getProduct(id) {
     return this.map.get(id);
   }

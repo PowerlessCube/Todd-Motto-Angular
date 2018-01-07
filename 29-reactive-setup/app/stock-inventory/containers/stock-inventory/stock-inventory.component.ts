@@ -58,12 +58,8 @@ export class StockInventoryComponent implements OnInit {
 
   form = this.fb.group({
     store: this.fb.group({
-      // 3. first arg default value
       branch: ['',
-        // 2nd synchronis validators
         [Validators.required, StockValidators.checkBranch],
-        // 3rd is the async validators - you can cadd multiple async validators by putting them in an array.
-        // 4. We ask for our branch call
         this.validateBranch.bind(this)
       ],
       code: ['', Validators.required]
@@ -97,12 +93,9 @@ export class StockInventoryComponent implements OnInit {
       })
   }
 
-  // 5. Branch call received
   validateBranch(control: AbstractControl) {
-    // We do this inside our component class so we can have access to our service
     return this.stockService
       .checkBranchId(control.value)
-      // map the response and return null or error unknownBranch.
       .map((response: boolean) => response ? null : { unknownBranch: true })
   }
 

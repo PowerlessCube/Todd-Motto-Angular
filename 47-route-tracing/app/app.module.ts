@@ -19,6 +19,7 @@ export const ROUTES: Routes = [
     BrowserModule,
     HttpModule,
     MailModule,
+    // Enables tracing for debugging:
     RouterModule.forRoot(ROUTES, { enableTracing: true })
   ],
   bootstrap: [

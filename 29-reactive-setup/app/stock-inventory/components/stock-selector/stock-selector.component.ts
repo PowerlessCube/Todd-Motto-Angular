@@ -23,6 +23,11 @@ import { Product } from '../../models/product.interface';
           min="10"
           max="1000"
           formControlName="quantity">
+          <stock-counter
+            [step]="10"
+            [min]="10"
+            [max]="1000">
+          </stock-counter>
         <button
           type="button"
           (click)="onAdd()">
@@ -45,24 +50,11 @@ export class StockSelectorComponent {
   added = new EventEmitter<any>();
 
   onAdd() {
-    // 3 ways of reseting a form control
     this.added.emit(this.parent.get('selector').value);
-    // Reset the selector values = pass in the reset value via object.
     this.parent.get('selector').reset({
       product_id: '',
       quantity: 10
     });
-
-    // Other way of resetting value = patchValue
-    // this.parent.get('selector').patchValue({
-    //   product_id: '',
-    // });
-    // SetValue, used for resetting multiple controls.
-    // this.parent.get('selector').setValue({
-    //   product_id: '',
-    //   quantity: 10
-    // });
-
   }
 
 }

@@ -19,8 +19,10 @@ export const ROUTES: Routes = [
     }
   },
   {
+    // dynamic value for id
     path: 'message/:id',
     component: MailViewComponent,
+    // we want to display it in the outlet named 'pane'
     outlet: 'pane'
   }
 ];

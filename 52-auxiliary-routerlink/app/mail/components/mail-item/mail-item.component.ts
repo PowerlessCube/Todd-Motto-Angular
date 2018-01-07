@@ -6,10 +6,14 @@ import { Mail } from '../../models/mail.interface';
   selector: 'mail-item',
   styleUrls: ['mail-item.component.scss'],
   template: `
-    <a 
+    <!-- Router Link example -->
+    <!--  default value, outlets, pane arguments with message and id-->
+    <!-- [routerLink]="['', { outlets: { pane: ['message', message.id] } }]" -->
+    <a
       class="mail-item"
       [routerLink]="['', { outlets: { pane: ['message', message.id] } }]"
       routerLinkActive="active">
+      <!-- routerLinkActive makes the border left active -->
       <h3>
         {{ message.from }}
         <span>{{ message.timestamp | date:'shortTime' }}</span>

@@ -13,10 +13,11 @@ import { Product } from '../../models/product.interface';
         <stock-branch
           [parent]="form">
         </stock-branch>
-
+        <!-- 4. listener event addStock-->
         <stock-selector
           [parent]="form"
-          [products]="products">
+          [products]="products"
+          (added)="addStock($event)">
         </stock-selector>
 
         <stock-products
@@ -64,6 +65,14 @@ export class StockInventoryComponent {
       product_id: new FormControl(parseInt(stock.product_id, 10) || ''),
       quantity: new FormControl(stock.quantity || 10)
     });
+  }
+
+  // 5. Add the stock
+  addStock(stock) {
+    // get access to the stock form array
+    const control = this.form.get('stock') as FormArray;
+    // createStock and then push it to the control.
+    control.push(this.createStock(stock));
   }
 
   onSubmit() {

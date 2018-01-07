@@ -1,8 +1,13 @@
-import { Component } from '@angular/core';
-// 1. Include it in project
+// Import OnInit for our service injection
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+//We're going to use an Observable to merge our API request.
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
 
-import { Product } from '../../models/product.interface';
+import { StockInventoryService } from '../../services/stock-inventory.service';
+
+import { Product, Item } from '../../models/product.interface';
 
 @Component({
   selector: 'stock-inventory',
@@ -22,6 +27,7 @@ import { Product } from '../../models/product.interface';
 
         <stock-products
           [parent]="form"
+          [map]="productMap"
           (removed)="removeStock($event)">
         </stock-products>
 
@@ -39,33 +45,49 @@ import { Product } from '../../models/product.interface';
     </div>
   `
 })
-export class StockInventoryComponent {
+export class StockInventoryComponent implements OnInit {
 
-  products: Product[] = [
-    { "id": 1, "price": 2800, "name": "MacBook Pro" },
-    { "id": 2, "price": 50, "name": "USB-C Adaptor" },
-    { "id": 3, "price": 400, "name": "iPod" },
-    { "id": 4, "price": 900, "name": "iPhone" },
-    { "id": 5, "price": 600, "name": "Apple Watch" },
-  ];
+  products: Product[] = [];
+  // number will be the looker and product will stored against the number
+  productMap: Map<number, Product>; // { 1: Product }
 
-  // FormBuilder - better way of maintaining our componentised form.
   form = this.fb.group({
     store: this.fb.group({
       branch: '',
       code: ''
     }),
     selector: this.createStock({}),
-    stock: this.fb.array([
-      this.createStock({ product_id: 1, quantity: 10 }),
-      this.createStock({ product_id: 3, quantity: 50 }),
-    ])
+    stock: this.fb.array([])
   })
 
-  // 2. Inject FormBuilder in constructor
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private stockService: StockInventoryService
   ){}
+
+  ngOnInit() {
+    // assign our service calls to varibales
+    const cart = this.stockService.getCartItems();
+    const products = this.stockService.getProducts();
+
+    // Merge them using rxjs forkjoin = acts like a promise all
+    Observable
+      .forkJoin(cart, products)
+      // Destructure the data and Type Check it
+      .subscribe(([cart, products]: [Item[], Product[]]) => {
+        // map over cart and products and pass them down to stock products
+        // Create New instance of productMap
+        const myMap = products
+          .map<[number, Product]>(product => [product.id, product]);
+          //Need to set this in the map - set it as a collection
+          this.productMap = new Map<number, Product>(myMap);
+          // Bind the products
+          this.products = products;
+          // iterate over the item and use addStock Function to add item
+          cart.forEach(item => this.addStock(item));
+
+      })
+  }
 
   createStock(stock) {
     return this.fb.group({

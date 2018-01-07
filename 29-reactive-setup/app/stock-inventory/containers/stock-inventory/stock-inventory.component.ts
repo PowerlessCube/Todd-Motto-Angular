@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+
+import { StockValidators } from './stock-inventory.validators';
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/forkJoin';
 
@@ -54,9 +57,10 @@ export class StockInventoryComponent implements OnInit {
   productMap: Map<number, Product>;
 
   form = this.fb.group({
+    // Goal: Create our own Custom validators
     store: this.fb.group({
-      // How to tell the reactive form that the fields are required
-      branch: ['', Validators.required],
+      // second argument can be an array. StockValidators with method of checkBranch
+      branch: ['', [Validators.required, StockValidators.checkBranch]],
       code: ['', Validators.required]
     }),
     selector: this.createStock({}),

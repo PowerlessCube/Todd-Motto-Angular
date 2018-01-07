@@ -15,6 +15,10 @@ import { FormGroup } from '@angular/forms';
           *ngIf="required('branch')">
             Branch ID is required
         </div>
+        <div class="error"
+          *ngIf="invalid">
+            Invalid branch code: 1 letter, 3 numbers
+        </div>
         <input
           type="text"
           placeholder="Manager Code"
@@ -33,10 +37,20 @@ export class StockBranchComponent {
   @Input()
   parent: FormGroup;
 
-  // Created our own required function
+  // used a getter to check if branch was valid
+  get invalid() {
+    return(
+      // if has code of invalidBranch
+      this.parent.get('store.branch').hasError('invalidBranch') &&
+      // And the user has made a typing attempt
+      this.parent.get('store.branch').dirty &&
+      // Required state is not invalid (don't want to show the required message at the same time)
+      !this.required('branch')
+    )
+  }
+
   required(name: string) {
     return (
-      // dynamically check for error and if they have been touched
       this.parent.get(`store.${name}`).hasError('required') &&
       this.parent.get(`store.${name}`).touched
     )

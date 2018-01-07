@@ -1,25 +1,25 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormArray } from '@angular/forms';
 
-//Source of truth
-
 @Component({
   selector: 'stock-inventory',
   styleUrls: ['stock-inventory.component.scss'],
   template: `
     <div class="stock-inventory">
       <form [formGroup]="form" (ngSubmit)="onSubmit">
-        <!-- Have to give it a form group Name-->
-        <div formGroupName="store">
-          <input
-            type="text"
-            placeholder="Branch ID"
-            formControlName="branch">
-          <input
-            type="text"
-            placeholder="Manager Code"
-            formControlName="code">
-        </div>
+
+        <stock-branch
+          [parent]="form">
+        </stock-branch>
+
+        <stock-selector
+          [parent]="form">
+        </stock-selector>
+
+        <stock-products
+          [parent]="form">
+        </stock-products>
+
         <div class="stock-inventory__buttons">
           <button type="submit"
             [disabled]="form.invalid">
@@ -34,15 +34,20 @@ import { FormControl, FormGroup, FormArray } from '@angular/forms';
   `
 })
 export class StockInventoryComponent {
+
   form = new FormGroup({
-    // Create our own form group and own form control, group is a nice wrapper to group a set of controls
+    // Three top level properties: store, selector and the stock
     store: new FormGroup({
-      // '' is our initial value. Control allows user to interact with it
-      branch: new FormControl('B182'),
-      code: new FormControl('1234')
-    })
+      branch: new FormControl(''),
+      code: new FormControl('')
+    }),
+    selector: new FormGroup({
+      product_id: new FormControl(''),
+      quantity: new FormControl(10)
+    }),
+    stock: new FormArray([])
   })
-  // Unlike template driven forms not passing anything through these function arguments
+
   onSubmit() {
     console.log('Submit: ', this.form.value);
   }

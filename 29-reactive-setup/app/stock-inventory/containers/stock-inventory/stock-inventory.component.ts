@@ -13,15 +13,16 @@ import { Product } from '../../models/product.interface';
         <stock-branch
           [parent]="form">
         </stock-branch>
-        <!-- 4. listener event addStock-->
         <stock-selector
           [parent]="form"
           [products]="products"
           (added)="addStock($event)">
         </stock-selector>
 
+        <!-- Event Listener -->
         <stock-products
-          [parent]="form">
+          [parent]="form"
+          (removed)="removeStock($event)">
         </stock-products>
 
         <div class="stock-inventory__buttons">
@@ -67,12 +68,15 @@ export class StockInventoryComponent {
     });
   }
 
-  // 5. Add the stock
   addStock(stock) {
-    // get access to the stock form array
     const control = this.form.get('stock') as FormArray;
-    // createStock and then push it to the control.
     control.push(this.createStock(stock));
+  }
+  // 4. Event Listener function removeStock
+  // ES6 destructuring and TypeScript type definition
+  removeStock({ group, index }: { group: FormGroup, index: number }) {
+    const control = this.form.get('stock') as FormArray;
+    control.removeAt(index)
   }
 
   onSubmit() {

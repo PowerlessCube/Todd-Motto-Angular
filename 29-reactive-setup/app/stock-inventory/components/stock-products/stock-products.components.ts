@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 
 @Component({
@@ -20,7 +20,10 @@ import { FormGroup, FormArray } from '@angular/forms';
               min="10"
               max="1000"
               formControlName="quantity">
-            <button type="button">
+              <!-- 1. Bind Click Event-->
+            <button
+              type="button"
+              (click)="onRemove(item, i)">
               Remove
             </button>
           </div>
@@ -33,6 +36,17 @@ import { FormGroup, FormArray } from '@angular/forms';
 export class StockProductsComponent {
   @Input()
   parent: FormGroup;
+
+  // 2. Create Emitter
+  @Output()
+  removed = new EventEmitter<any>();
+
+  // 3. on Remove Function that emits event to parent component with group and index
+  onRemove(group, index) {
+    // ES6 sugar: Object Literals e.g group: group etc.
+    this.removed.emit({group, index});
+  }
+
 
   get stocks() {
     return (this.parent.get('stock') as FormArray).controls;

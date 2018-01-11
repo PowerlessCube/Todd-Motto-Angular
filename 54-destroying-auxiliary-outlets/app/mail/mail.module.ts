@@ -14,6 +14,7 @@ export const ROUTES: Routes = [
   {
     path: 'folder/:name',
     component: MailFolderComponent,
+    // Add the MailFolderResolver
     resolve: {
       messages: MailFolderResolve
     }

@@ -13,6 +13,9 @@ import 'rxjs/add/operator/filter';
       </header>
       <div class="app__content">
         <nav>
+          <!-- Destroying auxiliary outlets -->
+          <!-- define a definition for 'primary'-->
+          <!-- to destroy the contents of utl outlet 'pane: null' -->
           <a
             [routerLink]="[{ outlets: { primary: 'folder/inbox', pane: null } }]"
             routerLinkActive="active">
@@ -30,6 +33,8 @@ import 'rxjs/add/operator/filter';
   `
 })
 export class AppComponent implements OnInit {
+
+  // You could also inject router into our constructor delegate the logic to the class section.
   constructor(private router: Router) {}
   ngOnInit() {}
 }

@@ -6,6 +6,7 @@ import { MailFolderComponent } from './containers/mail-folder/mail-folder.compon
 import { MailItemComponent } from './components/mail-item/mail-item.component';
 import { MailAppComponent } from './components/mail-app/mail-app.component';
 import { MailViewComponent } from './components/mail-view/mail-view.component';
+// Add our MailViewResolver to the mail.Module
 import { MailViewResolve } from './components/mail-view/mail-view.resolve';
 
 import { MailFolderResolve } from './containers/mail-folder/mail-folder.resolve';
@@ -15,6 +16,7 @@ export const ROUTES: Routes = [
   {
     path: 'folder/:name',
     component: MailFolderComponent,
+    // Adding the new resolver
     resolve: {
       messages: MailFolderResolve
     }
@@ -23,6 +25,7 @@ export const ROUTES: Routes = [
     path: 'message/:id',
     component: MailViewComponent,
     outlet: 'pane',
+    // Adding the new resolver
     resolve: {
       message: MailViewResolve
     }
@@ -43,6 +46,7 @@ export const ROUTES: Routes = [
   providers: [
     MailService,
     MailFolderResolve,
+    // Include it as a one of our providers.
     MailViewResolve
   ],
   exports: [

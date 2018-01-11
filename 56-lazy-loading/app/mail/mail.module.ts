@@ -13,10 +13,12 @@ import { MailService } from './mail.service';
 
 export const ROUTES: Routes = [
   {
+    // Created a path called mail
     path: 'mail',
     component: MailAppComponent,
     children: [
       {
+        // added paths
         path: 'folder/:name',
         component: MailFolderComponent,
         resolve: {

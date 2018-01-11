@@ -6,6 +6,7 @@ import { Mail } from '../../models/mail.interface';
   selector: 'mail-item',
   styleUrls: ['mail-item.component.scss'],
   template: `
+    <!-- changed the router link to look at /mail -->
     <a 
       class="mail-item"
       [routerLink]="['/mail', { outlets: { pane: ['message', message.id] } }]"

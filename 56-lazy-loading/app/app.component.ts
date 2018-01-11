@@ -10,6 +10,7 @@ import { Component } from '@angular/core';
       </header>
       <div class="app__content">
         <nav>
+          <!-- changed the router links to look at /mail and /dashboard -->
           <a
             [routerLink]="['/mail', { outlets: { primary: 'folder/inbox', pane: null } }]"
             routerLinkActive="active">
@@ -26,6 +27,7 @@ import { Component } from '@angular/core';
             Dashboard
           </a>
         </nav>
+        <!-- Changed out the mail-app template to use a router outlet-->
         <router-outlet></router-outlet>
       </div>
     </div>

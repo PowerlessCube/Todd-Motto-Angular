@@ -27,6 +27,7 @@ module.exports = {
     setup: function (app) {
       app.use('/api', jsonServer.router('db.json'));
     },
+    // Additional setup in webpack to handle chunks
     stats: {
       chunks: false,
       chunkModules: false

@@ -1,3 +1,4 @@
+// Stop or warnt he user that they are about to navigate away from a page etc.
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';

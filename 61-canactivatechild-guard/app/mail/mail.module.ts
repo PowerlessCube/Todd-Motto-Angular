@@ -1,3 +1,4 @@
+// CanActivate Children - We don't mind if the user visits the parent, but checking out the Children is NOT OK!
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -18,6 +19,7 @@ export const ROUTES: Routes = [
   {
     path: 'mail',
     component: MailAppComponent,
+    // Change the property to canActivateChild, comes in handy when you want to protect the child routes.
     canActivateChild: [AuthGuard],
     children: [
       {

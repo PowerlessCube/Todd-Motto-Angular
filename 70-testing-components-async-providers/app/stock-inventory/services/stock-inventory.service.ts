@@ -1,30 +1,28 @@
-import { Injectable } from '@angular/core';
-import { Http, Response, URLSearchParams } from '@angular/http';
+import { Injectable } from "@angular/core";
+import { Http, Response, URLSearchParams } from "@angular/http";
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/catch";
+import "rxjs/add/observable/throw";
 
-import { Product, Item } from '../models/product.interface';
+import { Product, Item } from "../models/product.interface";
 
 @Injectable()
 export class StockInventoryService {
-  
   constructor(private http: Http) {}
 
   getCartItems(): Observable<Item[]> {
     return this.http
-      .get('/api/cart')
+      .get("/api/cart")
       .map((response: Response) => response.json())
       .catch((error: any) => Observable.throw(error.json()));
   }
 
   getProducts(): Observable<Product[]> {
     return this.http
-      .get('/api/products')
+      .get("/api/products")
       .map((response: Response) => response.json())
       .catch((error: any) => Observable.throw(error.json()));
   }
-
 }
